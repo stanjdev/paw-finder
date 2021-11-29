@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/reactnative,react,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=reactnative,react,node
 
+/assets
+
 ### Node ###
 # Logs
 logs
