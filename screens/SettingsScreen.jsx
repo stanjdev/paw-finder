@@ -49,9 +49,9 @@ export default function SettingsScreen({ navigation, route }) {
       <View style={{marginTop: 20}}>
       <Text style={[{textAlign: "center", fontSize: 36, zIndex: -1, width: width}, styles.nunitoExtraBold]}>Settings</Text>
         <View style={{flexDirection: "row", padding: 20}}>
-          <View style={{backgroundColor: "white", flex: 1, height: height * 0.8, justifyContent: "space-around", alignItems: "center" }}>
+          <View style={{backgroundColor: "white", flex: 1, height: height * 0.8 }}>
 
-            <View style={{borderColor: 'blue', borderWidth: 2, width: '100%', padding: 20}}>
+            <View style={{ width: '100%', padding: 20}}>
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Size</Text>
                 <Text style={[ styles.nunitoRegular ]}>Small</Text>
@@ -85,22 +85,6 @@ export default function SettingsScreen({ navigation, route }) {
                 <Text style={[ styles.nunitoRegular ]}>40 miles</Text>
               </View>
             </View>
-
-
-            <AppButton 
-              title="Log Scheduled"
-              iconStyles={{height: 14, width: 11 }}
-              buttonStyles={styles.yellowButton}
-              buttonTextStyles={styles.buttonText}
-              onPress={viewScheduled}
-            />
-            <AppButton 
-              title="Kill Switch"
-              iconStyles={{height: 14, width: 11 }}
-              buttonStyles={styles.yellowButton}
-              buttonTextStyles={styles.buttonText}
-              onPress={killSwitch}
-            />
 
           </View>
         </View>

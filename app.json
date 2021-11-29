@@ -5,7 +5,7 @@
     "slug": "Paw-Finder",
     "version": "1.0",
     "orientation": "portrait",
-    "icon": "./assets/expo-app-icon.png",
+    "icon": "./assets/expo-app-icon-paw.png",
     "splash": {
       "resizeMode": "cover",
       "backgroundColor": "#000000"
@@ -35,12 +35,12 @@
       "package": "com.paw.finder",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/expo-app-icon.png",
+        "foregroundImage": "./assets/expo-app-icon-paw.png",
         "backgroundColor": "#000000"
       }
     },
     "web": {
-      "favicon": "./assets/expo-app-icon.png"
+      "favicon": "./assets/expo-app-icon-paw.png"
     }
   }
 }
