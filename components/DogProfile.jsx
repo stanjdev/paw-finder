@@ -13,9 +13,11 @@ const videoIcon = require('../assets/screen-icons/contact-buttons/video-call.png
 const calendarIcon = require('../assets/screen-icons/contact-buttons/calendar.png');
 
 
-export default function DogProfile({ navigation, photoURL, name }) {
+export default function DogProfile({ navigation, photoURL, name, route }) {
 
   const isFocused = useIsFocused();
+
+  const { dog } = route.params;
 
   let [fontsLoaded] = useFonts({
     'Nunito-Regular': require('../assets/fonts/Nunito/Nunito-Regular.ttf'),
@@ -48,10 +50,13 @@ export default function DogProfile({ navigation, photoURL, name }) {
           <View style={{flex: 1, height: height * 0.8, justifyContent: "space-evenly", alignItems: "center" }}>
 
             <View>
-              <Image source={require('../assets/dogs/wally.jpeg')} style={{width: width, height: 500, }} resizeMode="contain" />
+              <Image source={dog.imgUrl} style={{width: width, height: 500, }} resizeMode="cover" />
               <View style={styles.nameTag}>
-                <Text style={styles.Card_Title}>{'Wally'}</Text>
-                <Text style={styles.subText}>2 miles away</Text>
+                <Text style={styles.Card_Title}>{dog.name}</Text>
+                <View>
+                  <Text style={[styles.subText]}>2 miles away, <Text>@ {dog.foundation}</Text></Text>
+                  
+                </View>
               </View>
             </View>
 

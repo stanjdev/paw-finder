@@ -6,12 +6,13 @@ import {
   Dimensions, 
   Image, 
   Animated,
-  PanResponder
+  PanResponder,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default function SwipeableCard({ dog, removeCard }) {
+export default function SwipeableCard({ dog, removeCard, onPress }) {
   const [ Xposition, setXPosition ] = useState(new Animated.Value(0));
   const [ RightText, setRightText ] = useState(false);
   const [ LeftText, setLeftText ] = useState(false);
@@ -35,8 +36,8 @@ export default function SwipeableCard({ dog, removeCard }) {
       },
       onPanResponderRelease: (evt, gestureState) => {
         if (
-          gestureState.dx < SCREEN_WIDTH - 150 && 
-          gestureState.dx > -SCREEN_WIDTH + 150
+          gestureState.dx < SCREEN_WIDTH - 250 && 
+          gestureState.dx > -SCREEN_WIDTH + 250
         ) {
           setRightText(false);
           setLeftText(false);
@@ -44,9 +45,9 @@ export default function SwipeableCard({ dog, removeCard }) {
             Xposition, {
               toValue: 0, 
               speed: 5, 
-              bounciness: 10
+              bounciness: 10,
+              useNativeDriver: true,
             },
-            { useNativeDriver: true }
           ).start();
         } else if (gestureState.dx > SCREEN_WIDTH - 150) {
           Animated.parallel(
@@ -54,7 +55,7 @@ export default function SwipeableCard({ dog, removeCard }) {
               Animated.timing(Xposition, {
                 toValue: SCREEN_WIDTH,
                 duration: 200,
-                useNativeDriver: true
+                useNativeDriver: true,
               }),
               Animated.timing(Card_Opacity, {
                 toValue: 0,
@@ -74,7 +75,7 @@ export default function SwipeableCard({ dog, removeCard }) {
               Animated.timing(Xposition, {
                 toValue: -SCREEN_WIDTH,
                 duration: 200,
-                useNativeDriver: true
+                useNativeDriver: true,
               }),
               Animated.timing(Card_Opacity, {
                 toValue: 0,
@@ -112,13 +113,15 @@ export default function SwipeableCard({ dog, removeCard }) {
           ],
         },
       ]}>
-        <View style={{display: 'flex', alignItems: 'center'}}>
-          <Image source={dog.imgUrl} style={{ width: SCREEN_WIDTH * 0.9, height: 450, borderRadius: 15 }} resizeMode="cover" />
-          <View style={styles.nameTag}>
-            <Text style={styles.Card_Title}>{dog.name}</Text>
-            <Text style={styles.subText}>2 miles away</Text>
+        <TouchableWithoutFeedback onPress={onPress}>
+          <View style={{display: 'flex', alignItems: 'center'}}>
+            <Image source={dog.imgUrl} style={{ width: SCREEN_WIDTH * 0.9, height: 450, borderRadius: 15 }} resizeMode="cover" />
+            <View style={styles.nameTag}>
+              <Text style={styles.Card_Title}>{dog.name}</Text>
+              <Text style={styles.subText}>2 miles away</Text>
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
 
         {LeftText ? (
           <Text style={styles.Left_Text_Style}> NO </Text>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StatusBar, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import AppButton from '../components/AppButton';
 import { useIsFocused } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 const { width, height } = Dimensions.get('window');
 import * as Notifications from 'expo-notifications';
+import Slider from '@react-native-community/slider';
+import RNPickerSelect from 'react-native-picker-select';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,6 +18,131 @@ Notifications.setNotificationHandler({
 });
 
 export default function SettingsScreen({ navigation, route }) {
+  const sizes = [
+    {
+      label: 'Teacup',
+      value: 'teacup',
+    },
+    {
+      label: 'Small',
+      value: 'small',
+    },
+    {
+      label: 'Medium',
+      value: 'medium',
+    },
+    {
+      label: 'Large',
+      value: 'large',
+    },
+    {
+      label: 'Huge',
+      value: 'huge',
+    },
+  ];
+  const [ size, setSize ] = useState(sizes[1].label);
+
+  const ages = [
+    {
+      label: 'Puppy (0-2 years)',
+      value: 'puppy',
+    },
+    {
+      label: 'Young (2-5 years)',
+      value: 'young',
+    },
+    {
+      label: 'Adult (5-9 years)',
+      value: 'adult',
+    },
+    {
+      label: 'Old (10+)',
+      value: 'old',
+    },
+  ];
+  const [ age, setAge ] = useState(ages[0].label);
+
+  const coatColors = [
+    {
+      label: 'Black',
+      value: 'black',
+    },
+    {
+      label: 'White',
+      value: 'white',
+    },
+    {
+      label: 'Gold',
+      value: 'gold',
+    },
+    {
+      label: 'Mixed',
+      value: 'mixed',
+    },
+    {
+      label: 'Brown',
+      value: 'brown',
+    },
+    {
+      label: 'Light Brown',
+      value: 'light-brown',
+    },
+  ];
+  const [ coatColor, setCoatColor ] = useState(coatColors[5].label);
+
+  const breeds = [
+    {
+      label: 'Basenji',
+      value: 'basenji',
+    },
+    {
+      label: 'Terrier',
+      value: 'terrier',
+    },
+    {
+      label: 'Poodle',
+      value: 'poodle',
+    },
+    {
+      label: 'Golden Retriever',
+      value: 'golden-retriever',
+    },
+    {
+      label: 'German Shephard',
+      value: 'german-shephard',
+    },
+    {
+      label: 'St. Bernard',
+      value: 'st-bernard',
+    },
+    {
+      label: 'Husky',
+      value: 'husky',
+    },
+    {
+      label: 'Pitbull',
+      value: 'pitbull',
+    },
+    {
+      label: 'Yorkshire',
+      value: 'yorkshire',
+    },
+    {
+      label: 'Boston Terrier',
+      value: 'boston-terrier',
+    },
+    {
+      label: 'Bulldog',
+      value: 'bulldog',
+    },
+    {
+      label: 'Labrador',
+      value: 'labrador',
+    },
+  ];
+  const [ breed, setBreed ] = useState(breeds[0].label);
+
+  const [ miles, setMiles ] = useState(30);
 
   const viewScheduled = async () => {
     // See what's scheduled (array): 
@@ -42,9 +169,6 @@ export default function SettingsScreen({ navigation, route }) {
       <TouchableOpacity onPress={() => navigation.navigate('MainSwipeScreen')} style={{ padding: 10, position: "absolute", top: height * 0.052, zIndex: 100, left: 10, }}>
         <Image source={require('../assets/screen-icons/back-arrow.png')} style={{ height: 23, width: 23 }} resizeMode="contain"/>
       </TouchableOpacity>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('AddHabitScreen', { sets, workTime, rest })} style={{ padding: 10, position: "absolute", top: height * 0.063, right: width * 0.05, zIndex: 100,  }}>
-        <Image source={require('../assets/screen-icons/plus-symbol.png')} style={{height: 20, width: 20}} resizeMode="contain"/>
-      </TouchableOpacity> */}
 
       <View style={{marginTop: 20}}>
       <Text style={[{textAlign: "center", fontSize: 36, zIndex: -1, width: width}, styles.nunitoExtraBold]}>Settings</Text>
@@ -54,35 +178,80 @@ export default function SettingsScreen({ navigation, route }) {
             <View style={{ width: '100%', padding: 20}}>
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Size</Text>
-                <Text style={[ styles.nunitoRegular ]}>Small</Text>
+                <RNPickerSelect
+                  placeholder={{
+                      label: 'Select a size...',
+                      value: null,
+                  }}
+                  items={sizes}
+                  onValueChange={(value) => setSize(value)}
+                  style={{...styles.nunitoRegular}}
+                  value={size}
+                />
               </View>
 
               <View style={{ borderBottomColor: '#999999', borderBottomWidth: 0.5 }}/>
 
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Age</Text>
-                <Text style={[ styles.nunitoRegular ]}>Puppy (0-2 years)</Text>
+                <RNPickerSelect
+                  placeholder={{
+                      label: 'Select an age...',
+                      value: null,
+                  }}
+                  items={ages}
+                  onValueChange={(value) => setAge(value)}
+                  style={{...styles.nunitoRegular}}
+                  value={age}
+                />
               </View>
 
               <View style={{ borderBottomColor: '#999999', borderBottomWidth: 0.5 }}/>
 
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Coat Color</Text>
-                <Text style={[ styles.nunitoRegular ]}>Light Brown</Text>
+                <RNPickerSelect
+                  placeholder={{
+                      label: 'Select a coat color...',
+                      value: null,
+                  }}
+                  items={coatColors}
+                  onValueChange={(value) => setCoatColor(value)}
+                  style={{...styles.nunitoRegular}}
+                  value={coatColor}
+                />
               </View>
 
               <View style={{ borderBottomColor: '#999999', borderBottomWidth: 0.5 }}/>
 
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Breed</Text>
-                <Text style={[ styles.nunitoRegular ]}>Basenji</Text>
+                <RNPickerSelect
+                  placeholder={{
+                      label: 'Select a breed...',
+                      value: null,
+                  }}
+                  items={breeds}
+                  onValueChange={(value) => setBreed(value)}
+                  style={{...styles.nunitoRegular}}
+                  value={breed}
+                />
               </View>
               
               <View style={{ borderBottomColor: '#999999', borderBottomWidth: 0.5 }}/>
 
               <View style={{ marginTop: 10, marginBottom: 10 }}>
                 <Text style={[ styles.nunitoRegular, { color: '#898989' }]}>Distance</Text>
-                <Text style={[ styles.nunitoRegular ]}>40 miles</Text>
+                <Text style={[ styles.nunitoRegular ]}>{miles} miles</Text>
+                <Slider
+                  style={{width: width * 0.8, height: 20}}
+                  minimumValue={0}
+                  maximumValue={1}
+                  value={miles/100}
+                  onValueChange={(value) => setMiles(Math.floor(value * 100))}
+                  minimumTrackTintColor="#58C0E1"
+                  maximumTrackTintColor="#000000"
+                />
               </View>
             </View>
 

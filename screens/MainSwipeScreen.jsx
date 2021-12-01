@@ -12,23 +12,13 @@ import {
 import SwipeableCard from '../components/SwipeableCard';
 import { useIsFocused } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import RoundButton from '../components/RoundButton';
 const paw = require('../assets/screen-icons/PAW.png');
 const redXButton = require('../assets/screen-icons/x-button.png');
 
 const { width, height } = Dimensions.get('window');
-
-import * as Notifications from 'expo-notifications';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    priority: 'high'
-  }),
-});
 
 export default function MainSwipeScreen ({ route, navigation }) {
   const isFocused = useIsFocused();
@@ -42,48 +32,55 @@ export default function MainSwipeScreen ({ route, navigation }) {
   const [ dogs, setDogs ] = useState([
     {
       id: '1', 
-      card_Title: '人物', 
-      backgroundColor: '#FFC107',
       name: 'Bugsy',
       imgUrl: require('../assets/dogs/bugsy.jpeg'),
+      foundation: 'Woof 4 Lyfe'
     }, {
       id: '2', 
-      card_Title: 'Card 2', 
-      backgroundColor: '#ED2525',
       name: 'Wally',
       imgUrl: require('../assets/dogs/wally.jpeg'),
+      foundation: 'Samantha Foundation'
     }, {
       id: '3', 
-      card_Title: 'Card 3', 
-      backgroundColor: '#E7O88E',
       name: 'Smiley',
       imgUrl: require('../assets/dogs/smiley.jpeg'),
+      foundation: 'Ruff Rescue'
     }, {
       id: '4', 
-      card_Title: 'Card 4', 
-      backgroundColor: '#00BCD4',
       name: 'Buster',
       imgUrl: require('../assets/dogs/buster.jpeg'),
+      foundation: 'Tijuana Dogs'
     }, {
       id: '5', 
-      card_Title: 'Card 5', 
-      backgroundColor: '#FFFB14',
       name: 'Fido',
       imgUrl: require('../assets/dogs/fido.jpeg'),
-    }
+      foundation: 'Fur Fido'
+    },
   ]);
 
-  useEffect(() => {
-    setDogs(dogs.reverse())
-  }, [])
+  // useEffect(() => {
+  //   setDogs(dogs.reverse())
+  // }, [])
 
   const removeCard = (id) => {
     dogs.splice(
       dogs.findIndex((x) => x.id === id), 1
     );
+    setDogs(dogs);
+    setSwipeCards(renderDogCards());
     console.log('removed', id, '!')
   }
-
+  
+  const [ swipeCards, setSwipeCards ] = useState(renderDogCards());
+  const renderDogCards = () => dogs.map((dog, key) => (
+    <SwipeableCard
+      key={key + 1}
+      dog={dog}
+      removeCard={removeCard}
+      onPress={() => navigation.navigate('DogProfile', { dog })}
+    />
+  ));
+  
 
   return (
     <View style={styles.container}>
@@ -93,7 +90,17 @@ export default function MainSwipeScreen ({ route, navigation }) {
         {/* <TouchableOpacity onPress={() => navigation.navigate('AddHabitScreen')} style={{ padding: 15, paddingLeft: 0}}>
           <Image source={require('../assets/screen-icons/plus-symbol.png')} style={{height: 20, }} resizeMode="contain"/>
         </TouchableOpacity> */}
-        <View style={{ position: 'absolute', top: height * -0.1, width: width, backgroundColor: 'purple', height: height * 0.4, borderBottomRightRadius: 50, borderBottomLeftRadius: 50, zIndex: -1 }}/>
+
+        <View style={{ position: 'absolute', top: height * -0.1, width: width, backgroundColor: 'rgba(15, 76, 240, 0.9)', height: height * 0.45, borderBottomRightRadius: 50, borderBottomLeftRadius: 50, zIndex: -1 }}>
+          <LinearGradient colors={['rgba(176,14,253,1)', 'transparent']} style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: height * 0.45,
+          }}/>
+        </View>
+        
         <Text style={[{marginLeft: 20, textAlign: "left", fontSize: 36, color: "#E0E0E0", zIndex: 1, width: width}, styles.nunitoExtraBold]}>PawFinder</Text>        
         <TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')} style={{ padding: 10, position: "absolute", top: height * 0.005, right: width * 0.05, zIndex: 100 }}>
           <Image source={require('../assets/screen-icons/settings-gear-white.png')} style={{ height: 27, width: 27 }} resizeMode="contain"/>
@@ -103,13 +110,7 @@ export default function MainSwipeScreen ({ route, navigation }) {
     {dogs.length ? 
       <View style={{ alignItems: "center", marginTop: height * 0.15, width: width * 0.8, alignSelf: 'center', marginBottom: height * 0.05, zIndex: 100 }}>
         <View style={styles.MainContainer}>
-          {dogs.map((dog, key) => (
-            <SwipeableCard
-              key={key + 1}
-              dog={dog}
-              removeCard={removeCard}
-            />
-          ))}
+          {swipeCards}
 
           <View style={{ display: 'flex', flexDirection: 'row', width: width, height: 70, justifyContent: 'space-evenly', alignItems: 'center', bottom: -height * 0.74 }}>
             <RoundButton 
@@ -124,7 +125,7 @@ export default function MainSwipeScreen ({ route, navigation }) {
               buttonTextStyles={[styles.buttonText, styles.nunitoSemiBold]}
               icon={paw}
               iconStyles={{ height: 35, width: 35, marginTop: 8 }}
-              onPress={() => navigation.navigate('DogProfile')}
+              onPress={() => console.log('yes pressed')}
             />
           </View>
 
