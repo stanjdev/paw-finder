@@ -14,6 +14,8 @@ On iPhone, download [Expo Go](https://apps.apple.com/us/app/expo-go/id982107779)
 On Android, download [Expo](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&gl=US)
 
 Using your phone camera, scan the QR Code at https://expo.dev/@stan.dev/Paw-Finder to install the app onto your device.
+![pawfinder-readme](https://user-images.githubusercontent.com/61481150/145258369-4068780d-975d-4f77-9b2b-7e594ed371d1.png)
+
 
 ## Usage
 Swipe right if you're interested, swipe left if not. Press a dog card to open their profile for more details about the dog and rescue, and to chat, call, or schedule an appointment. Press on the profile icon to adjust details about yourself. Press on the settings icon to adjust search parameters.
