@@ -34,33 +34,47 @@ export default function MainSwipeScreen ({ route, navigation }) {
       id: '1', 
       name: 'Bugsy',
       imgUrl: require('../assets/dogs/bugsy.jpeg'),
-      foundation: 'Woof 4 Lyfe'
+      foundation: 'Woof 4 Lyfe',
+      about: 'Bugsy is the most loveable, bug-eyed furball on the planet! He loves to follow you around and put a smile on your face :)'
     }, {
       id: '2', 
       name: 'Wally',
       imgUrl: require('../assets/dogs/wally.jpeg'),
-      foundation: 'Samantha Foundation'
+      foundation: 'Samantha Foundation',
+      about: 'Wally is a wacky dog and he loves peanut butter. He was found by the river alone without a collar and he needed a new home. He is an energetic pup looking for an active family!'
     }, {
       id: '3', 
       name: 'Smiley',
       imgUrl: require('../assets/dogs/smiley.jpeg'),
-      foundation: 'Ruff Rescue'
+      foundation: 'Ruff Rescue',
+      about: 'Smiley is a calm, relaxed pup that is looking for a family with similar energy. She is not a fan of loud environments. She never barks and she is very snuggly.'
     }, {
       id: '4', 
       name: 'Buster',
       imgUrl: require('../assets/dogs/buster.jpeg'),
-      foundation: 'Tijuana Dogs'
+      foundation: 'Tijuana Dogs',
+      about: 'Buster is an active dog that loves to play fetch with frisbees! He is very fast and prefers a wide opened backyard if possible. Buster loves to run and is very obedient and open to learning new tricks!'
     }, {
       id: '5', 
       name: 'Fido',
       imgUrl: require('../assets/dogs/fido.jpeg'),
-      foundation: 'Fur Fido'
+      foundation: 'Fur Fido',
+      about: 'Fido is the perfect companion pet that is ready to go wherever you go. He is very well trained to sit and stay in place during long car rides, and he loves chicken!'
     },
   ]);
 
   // useEffect(() => {
   //   setDogs(dogs.reverse())
   // }, [])
+
+  const renderDogCards = () => dogs.map((dog, key) => (
+    <SwipeableCard
+      key={key + 1}
+      dog={dog}
+      removeCard={removeCard}
+      onPress={() => navigation.navigate('DogProfile', { dog })}
+    />
+  ));
 
   const removeCard = (id) => {
     dogs.splice(
@@ -72,14 +86,7 @@ export default function MainSwipeScreen ({ route, navigation }) {
   }
   
   const [ swipeCards, setSwipeCards ] = useState(renderDogCards());
-  const renderDogCards = () => dogs.map((dog, key) => (
-    <SwipeableCard
-      key={key + 1}
-      dog={dog}
-      removeCard={removeCard}
-      onPress={() => navigation.navigate('DogProfile', { dog })}
-    />
-  ));
+
   
 
   return (
@@ -102,6 +109,9 @@ export default function MainSwipeScreen ({ route, navigation }) {
         </View>
         
         <Text style={[{marginLeft: 20, textAlign: "left", fontSize: 36, color: "#E0E0E0", zIndex: 1, width: width}, styles.nunitoExtraBold]}>PawFinder</Text>        
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')} style={{ padding: 10, position: "absolute", top: height * 0.005, right: width * 0.17, zIndex: 100 }}>
+          <Image source={require('../assets/screen-icons/user-profile-icon.png')} style={{ height: 27, width: 27 }} resizeMode="contain"/>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')} style={{ padding: 10, position: "absolute", top: height * 0.005, right: width * 0.05, zIndex: 100 }}>
           <Image source={require('../assets/screen-icons/settings-gear-white.png')} style={{ height: 27, width: 27 }} resizeMode="contain"/>
         </TouchableOpacity>

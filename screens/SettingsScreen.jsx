@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
 import { Text, View, StatusBar, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
-import AppButton from '../components/AppButton';
 import { useIsFocused } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 const { width, height } = Dimensions.get('window');
-import * as Notifications from 'expo-notifications';
 import Slider from '@react-native-community/slider';
 import RNPickerSelect from 'react-native-picker-select';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    priority: 'high'
-  }),
-});
 
 export default function SettingsScreen({ navigation, route }) {
   const sizes = [

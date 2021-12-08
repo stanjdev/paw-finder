@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, View, StatusBar, Image, Dimensions, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import AppButton from '../components/AppButton';
+import { Text, ScrollView, View, StatusBar, Image, Dimensions, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import RoundButton from '../components/RoundButton';
 import { useIsFocused } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -46,8 +45,8 @@ export default function DogProfile({ navigation, photoURL, name, route }) {
       </TouchableOpacity>
 
       <View style={{display: 'flex'}}>
-        <View style={{flexDirection: "row", padding: 20}}>
-          <View style={{flex: 1, height: height * 0.8, justifyContent: "space-evenly", alignItems: "center" }}>
+        <View style={{flexDirection: "row", }}>
+          <View style={{flex: 1, height: height * 0.8, justifyContent: "space-between", alignItems: "center" }}>
 
             <View>
               <Image source={dog.imgUrl} style={{width: width, height: 500, }} resizeMode="cover" />
@@ -55,9 +54,13 @@ export default function DogProfile({ navigation, photoURL, name, route }) {
                 <Text style={styles.Card_Title}>{dog.name}</Text>
                 <View>
                   <Text style={[styles.subText]}>2 miles away, <Text>@ {dog.foundation}</Text></Text>
-                  
                 </View>
               </View>
+            </View>
+
+            <View style={{ width: width, padding: 20 }}>
+              <Text style={[styles.nunitoRegular, { fontSize: 18, }]}>About</Text>
+              <Text style={[styles.nunitoRegular, ]}>{dog.about}</Text>
             </View>
 
             <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: width * 0.4, justifyContent: 'center', }}>
@@ -109,8 +112,7 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOpacity: 0.2,
     shadowOffset: {width: 3, height: 3},
-    marginTop: -70,
-    marginBottom: 90,
+    marginTop: -60,
   },
   button: {
     height: 60,
